@@ -1,0 +1,477 @@
+
+🚀 Iniciando ejecución automatizada de 29 casos de prueba...
+--------------------------------------------------
+  -> [PASSED] Caso #1: Valores válidos dentro del Rango 1 (Nivel 1) (Status: 200)
+  -> [PASSED] Caso #2: Valores válidos dentro del Rango 2 (Nivel 2) (Status: 200)
+  -> [PASSED] Caso #3: Límite inferior válido del horario de operación (BVA Positivo - 8 hrs) (Status: 200)
+  -> [PASSED] Caso #4: Límite superior válido del horario de operación (BVA Positivo - 22 hrs) (Status: 200)
+  -> [PASSED] Caso #5: Hora de entrega anterior a apertura (BVA Negativo - 7 hrs) (Status: 200)
+  -> [PASSED] Caso #6: Hora de entrega posterior al cierre (BVA Negativo - 23 hrs) (Status: 200)
+  -> [PASSED] Caso #7: Límite superior del Nivel 1 en peso (BVA Positivo - 3.0 kg) (Status: 200)
+  -> [PASSED] Caso #8: Límite inferior del Nivel 2 en peso (BVA Positivo - 3.1 kg) (Status: 200)
+  -> [PASSED] Caso #9: Límite máximo permitido de peso (BVA Positivo - 6.0 kg) (Status: 200)
+  -> [PASSED] Caso #10: Exceso de peso permitido (BVA Negativo - 6.1 kg) (Status: 200)
+  -> [PASSED] Caso #11: Límite superior del Nivel 1 en artículos (BVA Positivo - 8 prods) (Status: 200)
+  -> [PASSED] Caso #12: Límite inferior del Nivel 2 en artículos (BVA Positivo - 9 prods) (Status: 200)
+  -> [PASSED] Caso #13: Límite máximo permitido de artículos (BVA Positivo - 15 prods) (Status: 200)
+  -> [PASSED] Caso #14: Exceso de artículos permitidos (BVA Negativo - 16 prods) (Status: 200)
+  -> [FAILED] Caso #15: Omisión del campo obligatorio deliveryTime (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #15) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Omisión del campo obligatorio deliveryTime | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsCount": 5,
+    "productsWeight": 2.0
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #16: Tipo de dato string en deliveryTime ('diez') (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #16) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Tipo de dato string en deliveryTime ('diez') | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": "diez",
+    "productsCount": 5,
+    "productsWeight": 2.0
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #17: Número negativo en productsCount (-1) (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #17) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Número negativo en productsCount (-1) | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12,
+    "productsCount": -1,
+    "productsWeight": 2.0
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #18: Número negativo en productsWeight (-1.5) (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #18) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Número negativo en productsWeight (-1.5) | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12,
+    "productsCount": 5,
+    "productsWeight": -1.5
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #19: Cuerpo de la solicitud totalmente vacío (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #19) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Cuerpo de la solicitud totalmente vacío | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #20: Omisión del campo obligatorio productsWeight (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #20) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Omisión del campo obligatorio productsWeight | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12,
+    "productsCount": 5
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #21: Valor booleano en productsCount (true) (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #21) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Valor booleano en productsCount (true) | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12,
+    "productsCount": true,
+    "productsWeight": 2.0
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #22: Objeto JSON dentro de productsWeight (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #22) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Objeto JSON dentro de productsWeight | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12,
+    "productsCount": 5,
+    "productsWeight": {
+        "peso": 2.0
+    }
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #23: Valor flotante en deliveryTime (12.5) (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #23) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Valor flotante en deliveryTime (12.5) | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12.5,
+    "productsCount": 5,
+    "productsWeight": 2.0
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [PASSED] Caso #24: Entero masivo en productsCount (999999 - Stress) (Status: 200)
+  -> [FAILED] Caso #25: Tipos de datos inválidos simultáneos en time y weight (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #25) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Tipos de datos inválidos simultáneos en time y weight | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": "doce",
+    "productsCount": 5,
+    "productsWeight": "dos"
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [PASSED] Caso #26: Method Tampering (Uso de verbo GET en lugar de POST) (Status: 405)
+  -> [PASSED] Caso #27: Contaminación de Parámetros (Campos extra en body) (Status: 200)
+  -> [FAILED] Caso #28: Header Fuzzing (Content-Type incorrecto text/plain) (Esperado: 415, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #28) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Header Fuzzing (Content-Type incorrecto text/plain) | Esperado: 415, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12,
+    "productsCount": 5,
+    "productsWeight": 2.0
+}
+```
+
+**Resultado Esperado:** Código HTTP 415.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+  -> [FAILED] Caso #29: Inyección de caracteres especiales/SQL en productsCount (Esperado: 400, Obtenido: 200)
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #29) 
+======================================================================
+**Título:** [POST /order-and-go/v1/delivery] - Inyección de caracteres especiales/SQL en productsCount | Esperado: 400, Obtenido: 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/order-and-go/v1/delivery`.
+2. Configurar los encabezados correspondientes (ej. `Content-Type: application/json`).
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "deliveryTime": 12,
+    "productsCount": "5; DROP TABLE orders;--",
+    "productsWeight": 2.0
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "name": "Order and Go",
+    "isItPossibleToDeliver": true,
+    "hostDeliveryCost": 3,
+    "toBeDeliveredTime": {
+        "min": 20,
+        "max": 25
+    },
+    "clientDeliveryCost": 0
+}
+```
+======================================================================
+
+
+==================================================
+📊 RESUMEN FINAL: 17 pasaron, 12 fallaron (bugs detectados).
+==================================================
+

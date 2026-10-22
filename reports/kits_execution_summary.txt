@@ -1,0 +1,1610 @@
+👤 Usuario creado con éxito. Token obtenido: 4dd76d7c-d613-4cf7-ac2d-2a5738b710e8
+📦 Usando Kit ID fijo '7' para la sesión con token autogenerado.
+
+🚀 Iniciando ejecución automatizada de 23 casos de prueba sobre el Kit ID 7...
+======================================================================
+  [PASSED] Caso #1: Verificar que el usuario pueda añadir un producto existente a un kit
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+  [PASSED] Caso #2: Verificar que se puedan agregar múltiples productos únicos existentes a un kit
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+  [PASSED] Caso #3: Verificar el límite máximo permitido de 30 productos únicos en un kit (BVA Positivo)
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+  [PASSED] Caso #4: Verificar el comportamiento al intentar agregar 31 productos únicos a un kit superando el límite (BVA Negativo)
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+
+  [PASSED] Caso #5: Verificar el comportamiento al intentar agregar productos a un ID de kit no existente
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 404 y validó correctamente la restricción.
+
+  [PASSED] Caso #6: Verificar el comportamiento al intentar agregar un ID de producto que no existe en el sistema
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+
+  [FAILED] Caso #7: Verificar el comportamiento al enviar una cantidad de producto negativa
+    └─ Resultado Obtenido: El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #7) 
+======================================================================
+**Título:** [POST /api/v1/kits/7/products] - Verificar el comportamiento al enviar una cantidad de producto negativa | Esperado: HTTP 400, Obtenido: HTTP 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 200.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": [
+        {
+            "id": 1,
+            "quantity": -1
+        }
+    ]
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "id": 7,
+    "name": "Mi Kit De Pruebas 1",
+    "productsList": [
+        {
+            "id": 3,
+            "name": "Refresco Pepsi",
+            "price": 2,
+            "weight": 1,
+            "units": "l",
+            "quantity": 4
+        },
+        {
+            "id": 1,
+            "name": "Orange Juice - Cold-Pressed, No Added Sugar, Preservative Free",
+            "price": 2,
+            "weight": 473,
+            "units": "ml",
+            "quantity": 2
+        },
+        {
+            "id": 6,
+            "name": "Baguette",
+            "price": 1,
+            "weight": 160,
+            "units": "g",
+            "quantity": 4
+        },
+        {
+            "id": 2,
+            "name": "Refresco Mountain Dew",
+            "price": 1,
+            "weight": 1,
+            "units": "l",
+            "quantity": 1
+        },
+        {
+            "id": 4,
+            "name": "Refresco Sprite",
+            "price": 1,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 5,
+            "name": "Jugo Fruit Power: Lichi",
+            "price": 5,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 7,
+            "name": "Papas fritas: Saladas Clásicas",
+            "price": 2,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 8,
+            "name": "Papas fritas: Paprika",
+            "price": 3,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 9,
+            "name": "Papas Fritas: Chile",
+            "price": 2,
+            "weight": 100,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 10,
+            "name": "Pita",
+            "price": 1,
+            "weight": 300,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 11,
+            "name": "Pan multigrano",
+            "price": 2,
+            "weight": 400,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 12,
+            "name": "Pan de ajo",
+            "price": 1,
+            "weight": 225,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 13,
+            "name": "Mini chapata",
+            "price": 1,
+            "weight": 107,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 14,
+            "name": "Brioche",
+            "price": 1,
+            "weight": 79,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 15,
+            "name": "Salchichas vienesas",
+            "price": 3,
+            "weight": 350,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 16,
+            "name": "Salchichas de pollo",
+            "price": 3,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 17,
+            "name": "Chorizo",
+            "price": 4,
+            "weight": 420,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 18,
+            "name": "Salchichón",
+            "price": 3,
+            "weight": 464,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 19,
+            "name": "Salami",
+            "price": 1,
+            "weight": 190,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 20,
+            "name": "Bacon",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 21,
+            "name": "Pastrami",
+            "price": 2,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 22,
+            "name": "Pepperoni",
+            "price": 5,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 23,
+            "name": "Anti-Bacterial Hand Sanitizer",
+            "price": 2,
+            "weight": 50,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 24,
+            "name": "Paper Napkin - Large",
+            "price": 1,
+            "weight": 60,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 25,
+            "name": "Anti Bacterial Disinfectant Sanitising Wipes - Alcohol Free",
+            "price": 3,
+            "weight": 48,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 26,
+            "name": "SMART Mosquito Repellent",
+            "price": 5,
+            "weight": 100,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 27,
+            "name": "Manzana verde",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 28,
+            "name": "Orange",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 29,
+            "name": "Cherry",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 30,
+            "name": "Raspberry",
+            "price": 4,
+            "weight": 250,
+            "units": "g",
+            "quantity": 1
+        }
+    ],
+    "productsCount": 37
+}
+```
+======================================================================
+
+  [FAILED] Caso #8: Verificar el comportamiento al enviar una cantidad igual a cero
+    └─ Resultado Obtenido: El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #8) 
+======================================================================
+**Título:** [POST /api/v1/kits/7/products] - Verificar el comportamiento al enviar una cantidad igual a cero | Esperado: HTTP 400, Obtenido: HTTP 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 200.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": [
+        {
+            "id": 1,
+            "quantity": 0
+        }
+    ]
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "id": 7,
+    "name": "Mi Kit De Pruebas 1",
+    "productsList": [
+        {
+            "id": 3,
+            "name": "Refresco Pepsi",
+            "price": 2,
+            "weight": 1,
+            "units": "l",
+            "quantity": 4
+        },
+        {
+            "id": 1,
+            "name": "Orange Juice - Cold-Pressed, No Added Sugar, Preservative Free",
+            "price": 2,
+            "weight": 473,
+            "units": "ml",
+            "quantity": 2
+        },
+        {
+            "id": 6,
+            "name": "Baguette",
+            "price": 1,
+            "weight": 160,
+            "units": "g",
+            "quantity": 4
+        },
+        {
+            "id": 2,
+            "name": "Refresco Mountain Dew",
+            "price": 1,
+            "weight": 1,
+            "units": "l",
+            "quantity": 1
+        },
+        {
+            "id": 4,
+            "name": "Refresco Sprite",
+            "price": 1,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 5,
+            "name": "Jugo Fruit Power: Lichi",
+            "price": 5,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 7,
+            "name": "Papas fritas: Saladas Clásicas",
+            "price": 2,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 8,
+            "name": "Papas fritas: Paprika",
+            "price": 3,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 9,
+            "name": "Papas Fritas: Chile",
+            "price": 2,
+            "weight": 100,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 10,
+            "name": "Pita",
+            "price": 1,
+            "weight": 300,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 11,
+            "name": "Pan multigrano",
+            "price": 2,
+            "weight": 400,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 12,
+            "name": "Pan de ajo",
+            "price": 1,
+            "weight": 225,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 13,
+            "name": "Mini chapata",
+            "price": 1,
+            "weight": 107,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 14,
+            "name": "Brioche",
+            "price": 1,
+            "weight": 79,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 15,
+            "name": "Salchichas vienesas",
+            "price": 3,
+            "weight": 350,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 16,
+            "name": "Salchichas de pollo",
+            "price": 3,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 17,
+            "name": "Chorizo",
+            "price": 4,
+            "weight": 420,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 18,
+            "name": "Salchichón",
+            "price": 3,
+            "weight": 464,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 19,
+            "name": "Salami",
+            "price": 1,
+            "weight": 190,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 20,
+            "name": "Bacon",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 21,
+            "name": "Pastrami",
+            "price": 2,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 22,
+            "name": "Pepperoni",
+            "price": 5,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 23,
+            "name": "Anti-Bacterial Hand Sanitizer",
+            "price": 2,
+            "weight": 50,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 24,
+            "name": "Paper Napkin - Large",
+            "price": 1,
+            "weight": 60,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 25,
+            "name": "Anti Bacterial Disinfectant Sanitising Wipes - Alcohol Free",
+            "price": 3,
+            "weight": 48,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 26,
+            "name": "SMART Mosquito Repellent",
+            "price": 5,
+            "weight": 100,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 27,
+            "name": "Manzana verde",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 28,
+            "name": "Orange",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 29,
+            "name": "Cherry",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 30,
+            "name": "Raspberry",
+            "price": 4,
+            "weight": 250,
+            "units": "g",
+            "quantity": 1
+        }
+    ],
+    "productsCount": 37
+}
+```
+======================================================================
+
+  [FAILED] Caso #9: Verificar el comportamiento cuando productsList no es un arreglo
+    └─ Resultado Obtenido: El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #9) 
+======================================================================
+**Título:** [POST /api/v1/kits/7/products] - Verificar el comportamiento cuando productsList no es un arreglo | Esperado: HTTP 400, Obtenido: HTTP 500
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 500.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": {
+        "id": 1,
+        "quantity": 1
+    }
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 500.
+Cuerpo de la respuesta:
+```json
+{
+    "code": 500,
+    "message": "productsList.find is not a function"
+}
+```
+======================================================================
+
+  [FAILED] Caso #10: Verificar el comportamiento al enviar un cuerpo de solicitud JSON totalmente vacío
+    └─ Resultado Obtenido: El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #10) 
+======================================================================
+**Título:** [POST /api/v1/kits/7/products] - Verificar el comportamiento al enviar un cuerpo de solicitud JSON totalmente vacío | Esperado: HTTP 400, Obtenido: HTTP 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 200.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "id": 7,
+    "name": "Mi Kit De Pruebas 1",
+    "productsList": [
+        {
+            "id": 3,
+            "name": "Refresco Pepsi",
+            "price": 2,
+            "weight": 1,
+            "units": "l",
+            "quantity": 4
+        },
+        {
+            "id": 1,
+            "name": "Orange Juice - Cold-Pressed, No Added Sugar, Preservative Free",
+            "price": 2,
+            "weight": 473,
+            "units": "ml",
+            "quantity": 2
+        },
+        {
+            "id": 6,
+            "name": "Baguette",
+            "price": 1,
+            "weight": 160,
+            "units": "g",
+            "quantity": 4
+        },
+        {
+            "id": 2,
+            "name": "Refresco Mountain Dew",
+            "price": 1,
+            "weight": 1,
+            "units": "l",
+            "quantity": 1
+        },
+        {
+            "id": 4,
+            "name": "Refresco Sprite",
+            "price": 1,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 5,
+            "name": "Jugo Fruit Power: Lichi",
+            "price": 5,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 7,
+            "name": "Papas fritas: Saladas Clásicas",
+            "price": 2,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 8,
+            "name": "Papas fritas: Paprika",
+            "price": 3,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 9,
+            "name": "Papas Fritas: Chile",
+            "price": 2,
+            "weight": 100,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 10,
+            "name": "Pita",
+            "price": 1,
+            "weight": 300,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 11,
+            "name": "Pan multigrano",
+            "price": 2,
+            "weight": 400,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 12,
+            "name": "Pan de ajo",
+            "price": 1,
+            "weight": 225,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 13,
+            "name": "Mini chapata",
+            "price": 1,
+            "weight": 107,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 14,
+            "name": "Brioche",
+            "price": 1,
+            "weight": 79,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 15,
+            "name": "Salchichas vienesas",
+            "price": 3,
+            "weight": 350,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 16,
+            "name": "Salchichas de pollo",
+            "price": 3,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 17,
+            "name": "Chorizo",
+            "price": 4,
+            "weight": 420,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 18,
+            "name": "Salchichón",
+            "price": 3,
+            "weight": 464,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 19,
+            "name": "Salami",
+            "price": 1,
+            "weight": 190,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 20,
+            "name": "Bacon",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 21,
+            "name": "Pastrami",
+            "price": 2,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 22,
+            "name": "Pepperoni",
+            "price": 5,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 23,
+            "name": "Anti-Bacterial Hand Sanitizer",
+            "price": 2,
+            "weight": 50,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 24,
+            "name": "Paper Napkin - Large",
+            "price": 1,
+            "weight": 60,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 25,
+            "name": "Anti Bacterial Disinfectant Sanitising Wipes - Alcohol Free",
+            "price": 3,
+            "weight": 48,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 26,
+            "name": "SMART Mosquito Repellent",
+            "price": 5,
+            "weight": 100,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 27,
+            "name": "Manzana verde",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 28,
+            "name": "Orange",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 29,
+            "name": "Cherry",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 30,
+            "name": "Raspberry",
+            "price": 4,
+            "weight": 250,
+            "units": "g",
+            "quantity": 1
+        }
+    ],
+    "productsCount": 37
+}
+```
+======================================================================
+
+  [PASSED] Caso #11: Verificar la adición de 1 solo producto único a un kit (Límite inferior BVA Positivo)
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+  [FAILED] Caso #12: Verificar el comportamiento al enviar un arreglo productsList vacío (BVA Negativo)
+    └─ Resultado Obtenido: El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #12) 
+======================================================================
+**Título:** [POST /api/v1/kits/7/products] - Verificar el comportamiento al enviar un arreglo productsList vacío (BVA Negativo) | Esperado: HTTP 400, Obtenido: HTTP 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 200.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": []
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "id": 7,
+    "name": "Mi Kit De Pruebas 1",
+    "productsList": [
+        {
+            "id": 3,
+            "name": "Refresco Pepsi",
+            "price": 2,
+            "weight": 1,
+            "units": "l",
+            "quantity": 4
+        },
+        {
+            "id": 1,
+            "name": "Orange Juice - Cold-Pressed, No Added Sugar, Preservative Free",
+            "price": 2,
+            "weight": 473,
+            "units": "ml",
+            "quantity": 3
+        },
+        {
+            "id": 6,
+            "name": "Baguette",
+            "price": 1,
+            "weight": 160,
+            "units": "g",
+            "quantity": 4
+        },
+        {
+            "id": 2,
+            "name": "Refresco Mountain Dew",
+            "price": 1,
+            "weight": 1,
+            "units": "l",
+            "quantity": 1
+        },
+        {
+            "id": 4,
+            "name": "Refresco Sprite",
+            "price": 1,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 5,
+            "name": "Jugo Fruit Power: Lichi",
+            "price": 5,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 7,
+            "name": "Papas fritas: Saladas Clásicas",
+            "price": 2,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 8,
+            "name": "Papas fritas: Paprika",
+            "price": 3,
+            "weight": 150,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 9,
+            "name": "Papas Fritas: Chile",
+            "price": 2,
+            "weight": 100,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 10,
+            "name": "Pita",
+            "price": 1,
+            "weight": 300,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 11,
+            "name": "Pan multigrano",
+            "price": 2,
+            "weight": 400,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 12,
+            "name": "Pan de ajo",
+            "price": 1,
+            "weight": 225,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 13,
+            "name": "Mini chapata",
+            "price": 1,
+            "weight": 107,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 14,
+            "name": "Brioche",
+            "price": 1,
+            "weight": 79,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 15,
+            "name": "Salchichas vienesas",
+            "price": 3,
+            "weight": 350,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 16,
+            "name": "Salchichas de pollo",
+            "price": 3,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 17,
+            "name": "Chorizo",
+            "price": 4,
+            "weight": 420,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 18,
+            "name": "Salchichón",
+            "price": 3,
+            "weight": 464,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 19,
+            "name": "Salami",
+            "price": 1,
+            "weight": 190,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 20,
+            "name": "Bacon",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 21,
+            "name": "Pastrami",
+            "price": 2,
+            "weight": 200,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 22,
+            "name": "Pepperoni",
+            "price": 5,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 23,
+            "name": "Anti-Bacterial Hand Sanitizer",
+            "price": 2,
+            "weight": 50,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 24,
+            "name": "Paper Napkin - Large",
+            "price": 1,
+            "weight": 60,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 25,
+            "name": "Anti Bacterial Disinfectant Sanitising Wipes - Alcohol Free",
+            "price": 3,
+            "weight": 48,
+            "units": "pzas",
+            "quantity": 1
+        },
+        {
+            "id": 26,
+            "name": "SMART Mosquito Repellent",
+            "price": 5,
+            "weight": 100,
+            "units": "ml",
+            "quantity": 1
+        },
+        {
+            "id": 27,
+            "name": "Manzana verde",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 28,
+            "name": "Orange",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 29,
+            "name": "Cherry",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 1
+        },
+        {
+            "id": 30,
+            "name": "Raspberry",
+            "price": 4,
+            "weight": 250,
+            "units": "g",
+            "quantity": 1
+        }
+    ],
+    "productsCount": 38
+}
+```
+======================================================================
+
+  [PASSED] Caso #13: Verificar que una cantidad alta (quantity: 35) no afecte el límite de productos únicos
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+  [FAILED] Caso #14: Verificar el comportamiento al enviar un tipo string en el parámetro ID del kit
+    └─ Resultado Obtenido: El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #14) 
+======================================================================
+**Título:** [POST /api/v1/kits/abc/products] - Verificar el comportamiento al enviar un tipo string en el parámetro ID del kit | Esperado: HTTP 400, Obtenido: HTTP 500
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 500.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/abc/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": [
+        {
+            "id": 1,
+            "quantity": 1
+        }
+    ]
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 500.
+Cuerpo de la respuesta:
+```json
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Internal Server Error</pre>
+</body>
+</html>
+
+```
+======================================================================
+
+  [PASSED] Caso #15: Verificar el comportamiento al enviar un string en el campo id de producto
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+
+  [PASSED] Caso #16: Verificar la adición de 29 productos únicos a un kit (Límite cercano al máximo)
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+  [PASSED] Caso #17: Verificar el comportamiento al enviar el mismo ID de producto repetido
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+  [PASSED] Caso #18: Verificar el comportamiento al omitir la propiedad id en el objeto de producto
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+
+  [FAILED] Caso #19: Verificar el comportamiento al omitir la propiedad quantity en el objeto de producto
+    └─ Resultado Obtenido: El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #19) 
+======================================================================
+**Título:** [POST /api/v1/kits/7/products] - Verificar el comportamiento al omitir la propiedad quantity en el objeto de producto | Esperado: HTTP 400, Obtenido: HTTP 500
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 500.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": [
+        {
+            "id": 1
+        }
+    ]
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 500.
+Cuerpo de la respuesta:
+```json
+{
+    "code": 500,
+    "message": "invalid input syntax for type integer: \"NaN\""
+}
+```
+======================================================================
+
+  [FAILED] Caso #20: Verificar el comportamiento al enviar un string en el campo quantity
+    └─ Resultado Obtenido: El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #20) 
+======================================================================
+**Título:** [POST /api/v1/kits/7/products] - Verificar el comportamiento al enviar un string en el campo quantity | Esperado: HTTP 400, Obtenido: HTTP 500
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 500.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": [
+        {
+            "id": 1,
+            "quantity": "dos"
+        }
+    ]
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 500.
+Cuerpo de la respuesta:
+```json
+{
+    "code": 500,
+    "message": "invalid input syntax for type integer: \"541dos5222222222222222222222222221\""
+}
+```
+======================================================================
+
+  [PASSED] Caso #21: Verificar el comportamiento al enviar método GET en lugar de POST
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 405 y validó correctamente la restricción.
+
+  [FAILED] Caso #22: Verificar robustez ante inyección maliciosa en el parámetro ID de kit
+    └─ Resultado Obtenido: El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400.
+
+
+======================================================================
+ 🐛 BUG REPORT GENERADO AUTOMÁTICAMENTE PARA JIRA (Caso #22) 
+======================================================================
+**Título:** [POST /api/v1/kits/7%27%20OR%20%271%27=%271/products] - Verificar robustez ante inyección maliciosa en el parámetro ID de kit | Esperado: HTTP 400, Obtenido: HTTP 200
+**Entorno:** QA Environment / Linux Terminal (Python Automated)
+**Prioridad:** Medium / High
+
+⚠️ **Detalle del fallo:** Código esperado: 400, obtenido: 200.
+
+**Pasos para reproducir:**
+1. Enviar petición HTTP POST a la ruta `/api/v1/kits/7%27%20OR%20%271%27=%271/products`.
+2. Configurar los encabezados incluyendo el token de autorización.
+3. Enviar el siguiente cuerpo de solicitud (Payload):
+```json
+{
+    "productsList": [
+        {
+            "id": 1,
+            "quantity": 1
+        }
+    ]
+}
+```
+
+**Resultado Esperado:** Código HTTP 400.
+**Resultado Actual:** Código HTTP 200.
+Cuerpo de la respuesta:
+```json
+{
+    "id": 7,
+    "name": "Mi Kit De Pruebas 1",
+    "productsList": [
+        {
+            "id": 3,
+            "name": "Refresco Pepsi",
+            "price": 2,
+            "weight": 1,
+            "units": "l",
+            "quantity": 5
+        },
+        {
+            "id": 1,
+            "name": "Orange Juice - Cold-Pressed, No Added Sugar, Preservative Free",
+            "price": 2,
+            "weight": 473,
+            "units": "ml",
+            "quantity": 42
+        },
+        {
+            "id": 6,
+            "name": "Baguette",
+            "price": 1,
+            "weight": 160,
+            "units": "g",
+            "quantity": 5
+        },
+        {
+            "id": 2,
+            "name": "Refresco Mountain Dew",
+            "price": 1,
+            "weight": 1,
+            "units": "l",
+            "quantity": 2
+        },
+        {
+            "id": 4,
+            "name": "Refresco Sprite",
+            "price": 1,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 2
+        },
+        {
+            "id": 5,
+            "name": "Jugo Fruit Power: Lichi",
+            "price": 5,
+            "weight": 900,
+            "units": "ml",
+            "quantity": 2
+        },
+        {
+            "id": 7,
+            "name": "Papas fritas: Saladas Clásicas",
+            "price": 2,
+            "weight": 150,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 8,
+            "name": "Papas fritas: Paprika",
+            "price": 3,
+            "weight": 150,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 9,
+            "name": "Papas Fritas: Chile",
+            "price": 2,
+            "weight": 100,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 10,
+            "name": "Pita",
+            "price": 1,
+            "weight": 300,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 11,
+            "name": "Pan multigrano",
+            "price": 2,
+            "weight": 400,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 12,
+            "name": "Pan de ajo",
+            "price": 1,
+            "weight": 225,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 13,
+            "name": "Mini chapata",
+            "price": 1,
+            "weight": 107,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 14,
+            "name": "Brioche",
+            "price": 1,
+            "weight": 79,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 15,
+            "name": "Salchichas vienesas",
+            "price": 3,
+            "weight": 350,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 16,
+            "name": "Salchichas de pollo",
+            "price": 3,
+            "weight": 200,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 17,
+            "name": "Chorizo",
+            "price": 4,
+            "weight": 420,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 18,
+            "name": "Salchichón",
+            "price": 3,
+            "weight": 464,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 19,
+            "name": "Salami",
+            "price": 1,
+            "weight": 190,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 20,
+            "name": "Bacon",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 21,
+            "name": "Pastrami",
+            "price": 2,
+            "weight": 200,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 22,
+            "name": "Pepperoni",
+            "price": 5,
+            "weight": 500,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 23,
+            "name": "Anti-Bacterial Hand Sanitizer",
+            "price": 2,
+            "weight": 50,
+            "units": "ml",
+            "quantity": 2
+        },
+        {
+            "id": 24,
+            "name": "Paper Napkin - Large",
+            "price": 1,
+            "weight": 60,
+            "units": "pzas",
+            "quantity": 2
+        },
+        {
+            "id": 25,
+            "name": "Anti Bacterial Disinfectant Sanitising Wipes - Alcohol Free",
+            "price": 3,
+            "weight": 48,
+            "units": "pzas",
+            "quantity": 2
+        },
+        {
+            "id": 26,
+            "name": "SMART Mosquito Repellent",
+            "price": 5,
+            "weight": 100,
+            "units": "ml",
+            "quantity": 2
+        },
+        {
+            "id": 27,
+            "name": "Manzana verde",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 28,
+            "name": "Orange",
+            "price": 2,
+            "weight": 500,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 29,
+            "name": "Cherry",
+            "price": 4,
+            "weight": 500,
+            "units": "g",
+            "quantity": 2
+        },
+        {
+            "id": 30,
+            "name": "Raspberry",
+            "price": 4,
+            "weight": 250,
+            "units": "g",
+            "quantity": 1
+        }
+    ],
+    "productsCount": 105
+}
+```
+======================================================================
+
+  [PASSED] Caso #23: Verificar comportamiento al incluir campos extra no documentados en el body
+    └─ Resultado Obtenido: El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+
+======================================================================
+📊 RESUMEN FINAL (KITS): 14 PASSED, 9 FAILED.
+======================================================================
+
+📁 Reporte CSV de kits exportado con éxito a: Artifacts/Reports/kits_results.csv

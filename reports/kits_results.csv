@@ -1,0 +1,24 @@
+ID,Nombre,Estatus,Estado Esperado,Estado Obtenido,Resultado Obtenido Redactado
+1,Verificar que el usuario pueda añadir un producto existente a un kit,Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+2,Verificar que se puedan agregar múltiples productos únicos existentes a un kit,Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+3,Verificar el límite máximo permitido de 30 productos únicos en un kit (BVA Positivo),Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+4,Verificar el comportamiento al intentar agregar 31 productos únicos a un kit superando el límite (BVA Negativo),Passed,400,400,El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+5,Verificar el comportamiento al intentar agregar productos a un ID de kit no existente,Passed,404,404,El sistema devolvió el código esperado HTTP 404 y validó correctamente la restricción.
+6,Verificar el comportamiento al intentar agregar un ID de producto que no existe en el sistema,Passed,400,400,El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+7,Verificar el comportamiento al enviar una cantidad de producto negativa,Failed,400,200,"El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400."
+8,Verificar el comportamiento al enviar una cantidad igual a cero,Failed,400,200,"El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400."
+9,Verificar el comportamiento cuando productsList no es un arreglo,Failed,400,500,"El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400."
+10,Verificar el comportamiento al enviar un cuerpo de solicitud JSON totalmente vacío,Failed,400,200,"El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400."
+11,Verificar la adición de 1 solo producto único a un kit (Límite inferior BVA Positivo),Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+12,Verificar el comportamiento al enviar un arreglo productsList vacío (BVA Negativo),Failed,400,200,"El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400."
+13,Verificar que una cantidad alta (quantity: 35) no afecte el límite de productos únicos,Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+14,Verificar el comportamiento al enviar un tipo string en el parámetro ID del kit,Failed,400,500,"El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400."
+15,Verificar el comportamiento al enviar un string en el campo id de producto,Passed,400,400,El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+16,Verificar la adición de 29 productos únicos a un kit (Límite cercano al máximo),Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+17,Verificar el comportamiento al enviar el mismo ID de producto repetido,Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.
+18,Verificar el comportamiento al omitir la propiedad id en el objeto de producto,Passed,400,400,El sistema devolvió el código esperado HTTP 400 y validó correctamente la restricción.
+19,Verificar el comportamiento al omitir la propiedad quantity en el objeto de producto,Failed,400,500,"El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400."
+20,Verificar el comportamiento al enviar un string en el campo quantity,Failed,400,500,"El sistema devolvió HTTP 500, en lugar de rechazar con el código esperado HTTP 400."
+21,Verificar el comportamiento al enviar método GET en lugar de POST,Passed,405,405,El sistema devolvió el código esperado HTTP 405 y validó correctamente la restricción.
+22,Verificar robustez ante inyección maliciosa en el parámetro ID de kit,Failed,400,200,"El sistema devolvió HTTP 200, en lugar de rechazar con el código esperado HTTP 400."
+23,Verificar comportamiento al incluir campos extra no documentados en el body,Passed,200,200,El sistema devolvió el código esperado HTTP 200 y validó correctamente la restricción.

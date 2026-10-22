@@ -1,0 +1,304 @@
+import json
+import os
+
+output_dir = "Data"
+os.makedirs(output_dir, exist_ok=True)
+file_path = os.path.join(output_dir, "delivery_cases.json")
+
+delivery_test_cases = [
+    {
+        "id": 1,
+        "name": "Valores válidos dentro del Rango 1 (Nivel 1)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 10, "productsCount": 5, "productsWeight": 2.0},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 2,
+        "name": "Valores válidos dentro del Rango 2 (Nivel 2)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 15, "productsCount": 12, "productsWeight": 4.5},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 3,
+        "name": "Límite inferior válido del horario de operación (BVA Positivo - 8 hrs)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 8, "productsCount": 4, "productsWeight": 1.5},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 4,
+        "name": "Límite superior válido del horario de operación (BVA Positivo - 22 hrs)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 22, "productsCount": 4, "productsWeight": 1.5},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 5,
+        "name": "Hora de entrega anterior a apertura (BVA Negativo - 7 hrs)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 7, "productsCount": 4, "productsWeight": 1.5},
+        "expected_status": 200,
+        "expected_is_possible": False
+    },
+    {
+        "id": 6,
+        "name": "Hora de entrega posterior al cierre (BVA Negativo - 23 hrs)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 23, "productsCount": 4, "productsWeight": 1.5},
+        "expected_status": 200,
+        "expected_is_possible": False
+    },
+    {
+        "id": 7,
+        "name": "Límite superior del Nivel 1 en peso (BVA Positivo - 3.0 kg)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": 3.0},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 8,
+        "name": "Límite inferior del Nivel 2 en peso (BVA Positivo - 3.1 kg)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": 3.1},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 9,
+        "name": "Límite máximo permitido de peso (BVA Positivo - 6.0 kg)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": 6.0},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 10,
+        "name": "Exceso de peso permitido (BVA Negativo - 6.1 kg)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": 6.1},
+        "expected_status": 200,
+        "expected_is_possible": False
+    },
+    {
+        "id": 11,
+        "name": "Límite superior del Nivel 1 en artículos (BVA Positivo - 8 prods)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 8, "productsWeight": 2.0},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 12,
+        "name": "Límite inferior del Nivel 2 en artículos (BVA Positivo - 9 prods)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 9, "productsWeight": 2.0},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 13,
+        "name": "Límite máximo permitido de artículos (BVA Positivo - 15 prods)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 15, "productsWeight": 2.0},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 14,
+        "name": "Exceso de artículos permitidos (BVA Negativo - 16 prods)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 16, "productsWeight": 2.0},
+        "expected_status": 200,
+        "expected_is_possible": False
+    },
+    {
+        "id": 15,
+        "name": "Omisión del campo obligatorio deliveryTime",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsCount": 5, "productsWeight": 2.0},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 16,
+        "name": "Tipo de dato string en deliveryTime ('diez')",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": "diez", "productsCount": 5, "productsWeight": 2.0},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 17,
+        "name": "Número negativo en productsCount (-1)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": -1, "productsWeight": 2.0},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 18,
+        "name": "Número negativo en productsWeight (-1.5)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": -1.5},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 19,
+        "name": "Cuerpo de la solicitud totalmente vacío",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 20,
+        "name": "Omisión del campo obligatorio productsWeight",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 21,
+        "name": "Valor booleano en productsCount (true)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": True, "productsWeight": 2.0},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 22,
+        "name": "Objeto JSON dentro de productsWeight",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": {"peso": 2.0}},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 23,
+        "name": "Valor flotante en deliveryTime (12.5)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12.5, "productsCount": 5, "productsWeight": 2.0},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 24,
+        "name": "Entero masivo en productsCount (999999 - Stress)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 999999, "productsWeight": 2.0},
+        "expected_status": 200,
+        "expected_is_possible": False
+    },
+    {
+        "id": 25,
+        "name": "Tipos de datos inválidos simultáneos en time y weight",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": "doce", "productsCount": 5, "productsWeight": "dos"},
+        "expected_status": 400,
+        "expected_is_possible": None
+    },
+    {
+        "id": 26,
+        "name": "Method Tampering (Uso de verbo GET en lugar de POST)",
+        "method": "GET",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": None,
+        "expected_status": 405,
+        "expected_is_possible": None
+    },
+    {
+        "id": 27,
+        "name": "Contaminación de Parámetros (Campos extra en body)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": 2.0, "isAdmin": True, "discountCode": "VIP_FREE"},
+        "expected_status": 200,
+        "expected_is_possible": True
+    },
+    {
+        "id": 28,
+        "name": "Header Fuzzing (Content-Type incorrecto text/plain)",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "text/plain"},
+        "payload": {"deliveryTime": 12, "productsCount": 5, "productsWeight": 2.0},
+        "expected_status": 415,
+        "expected_is_possible": None
+    },
+    {
+        "id": 29,
+        "name": "Inyección de caracteres especiales/SQL en productsCount",
+        "method": "POST",
+        "endpoint": "/order-and-go/v1/delivery",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"deliveryTime": 12, "productsCount": "5; DROP TABLE orders;--", "productsWeight": 2.0},
+        "expected_status": 400,
+        "expected_is_possible": None
+    }
+]
+
+with open(file_path, "w", encoding="utf-8") as f:
+    json.dump(delivery_test_cases, f, indent=4, ensure_ascii=False)
+
+print(f"✅ Archivo '{file_path}' generado con éxito ({len(delivery_test_cases)} casos de prueba).")

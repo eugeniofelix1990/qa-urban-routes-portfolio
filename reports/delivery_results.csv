@@ -1,0 +1,30 @@
+ID,Nombre,Estatus,Estado Esperado,Estado Obtenido,Resultado Obtenido Redactado
+1,Valores válidos dentro del Rango 1 (Nivel 1),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+2,Valores válidos dentro del Rango 2 (Nivel 2),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+3,Límite inferior válido del horario de operación (BVA Positivo - 8 hrs),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+4,Límite superior válido del horario de operación (BVA Positivo - 22 hrs),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+5,Hora de entrega anterior a apertura (BVA Negativo - 7 hrs),Failed,200,200,"El sistema devolvió HTTP 200 OK pero violó la regla de negocio: se esperaba 'isItPossibleToDeliver: False', pero obtuvo 'True'."
+6,Hora de entrega posterior al cierre (BVA Negativo - 23 hrs),Failed,200,200,"El sistema devolvió HTTP 200 OK pero violó la regla de negocio: se esperaba 'isItPossibleToDeliver: False', pero obtuvo 'True'."
+7,Límite superior del Nivel 1 en peso (BVA Positivo - 3.0 kg),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+8,Límite inferior del Nivel 2 en peso (BVA Positivo - 3.1 kg),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+9,Límite máximo permitido de peso (BVA Positivo - 6.0 kg),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+10,Exceso de peso permitido (BVA Negativo - 6.1 kg),Failed,200,200,"El sistema devolvió HTTP 200 OK pero violó la regla de negocio: se esperaba 'isItPossibleToDeliver: False', pero obtuvo 'True'."
+11,Límite superior del Nivel 1 en artículos (BVA Positivo - 8 prods),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+12,Límite inferior del Nivel 2 en artículos (BVA Positivo - 9 prods),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+13,Límite máximo permitido de artículos (BVA Positivo - 15 prods),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+14,Exceso de artículos permitidos (BVA Negativo - 16 prods),Failed,200,200,"El sistema devolvió HTTP 200 OK pero violó la regla de negocio: se esperaba 'isItPossibleToDeliver: False', pero obtuvo 'True'."
+15,Omisión del campo obligatorio deliveryTime,Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+16,Tipo de dato string en deliveryTime ('diez'),Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+17,Número negativo en productsCount (-1),Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+18,Número negativo en productsWeight (-1.5),Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+19,Cuerpo de la solicitud totalmente vacío,Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+20,Omisión del campo obligatorio productsWeight,Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+21,Valor booleano en productsCount (true),Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+22,Objeto JSON dentro de productsWeight,Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+23,Valor flotante en deliveryTime (12.5),Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+24,Entero masivo en productsCount (999999 - Stress),Failed,200,200,"El sistema devolvió HTTP 200 OK pero violó la regla de negocio: se esperaba 'isItPossibleToDeliver: False', pero obtuvo 'True'."
+25,Tipos de datos inválidos simultáneos en time y weight,Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."
+26,Method Tampering (Uso de verbo GET en lugar de POST),Passed,405,405,El sistema rechazó el método no permitido respondiendo correctamente con HTTP 405 Method Not Allowed.
+27,Contaminación de Parámetros (Campos extra en body),Passed,200,200,El sistema procesó la solicitud devolviendo HTTP 200 OK y confirmando entrega viable (isItPossibleToDeliver: true).
+28,Header Fuzzing (Content-Type incorrecto text/plain),Failed,415,200,El sistema aceptó la cabecera 'Content-Type: text/plain' devolviendo HTTP 200 OK en lugar de rechazar con HTTP 415 o 400.
+29,Inyección de caracteres especiales/SQL en productsCount,Failed,400,200,"El sistema devolvió HTTP 200 OK procesando la solicitud, en lugar de rechazarla con el código esperado HTTP 400 Bad Request."

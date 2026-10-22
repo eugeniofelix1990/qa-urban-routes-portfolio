@@ -1,0 +1,210 @@
+[
+    {
+        "id": 1,
+        "name": "Verificar que el usuario pueda añadir un producto existente a un kit",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 3, "quantity": 3}]},
+        "expected_status": 200
+    },
+    {
+        "id": 2,
+        "name": "Verificar que se puedan agregar múltiples productos únicos existentes a un kit",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 2}, {"id": 6, "quantity": 3}]},
+        "expected_status": 200
+    },
+    {
+        "id": 3,
+        "name": "Verificar el límite máximo permitido de 30 productos únicos en un kit (BVA Positivo)",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": i, "quantity": 1} for i in range(1, 31)]},
+        "expected_status": 200
+    },
+    {
+        "id": 4,
+        "name": "Verificar el comportamiento al intentar agregar 31 productos únicos a un kit superando el límite (BVA Negativo)",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": i, "quantity": 1} for i in range(1, 32)]},
+        "expected_status": 400,
+        "expected_error_message": "No más de 30 artículos por conjunto"
+    },
+    {
+        "id": 5,
+        "name": "Verificar el comportamiento al intentar agregar productos a un ID de kit no existente",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/9999/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 1}]},
+        "expected_status": 404
+    },
+    {
+        "id": 6,
+        "name": "Verificar el comportamiento al intentar agregar un ID de producto que no existe en el sistema",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 9999, "quantity": 1}]},
+        "expected_status": 400
+    },
+    {
+        "id": 7,
+        "name": "Verificar el comportamiento al enviar una cantidad de producto negativa",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": -1}]},
+        "expected_status": 400
+    },
+    {
+        "id": 8,
+        "name": "Verificar el comportamiento al enviar una cantidad igual a cero",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 0}]},
+        "expected_status": 400
+    },
+    {
+        "id": 9,
+        "name": "Verificar el comportamiento cuando productsList no es un arreglo",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": {"id": 1, "quantity": 1}},
+        "expected_status": 400
+    },
+    {
+        "id": 10,
+        "name": "Verificar el comportamiento al enviar un cuerpo de solicitud JSON totalmente vacío",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {},
+        "expected_status": 400
+    },
+    {
+        "id": 11,
+        "name": "Verificar la adición de 1 solo producto único a un kit (Límite inferior BVA Positivo)",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 1}]},
+        "expected_status": 200
+    },
+    {
+        "id": 12,
+        "name": "Verificar el comportamiento al enviar un arreglo productsList vacío (BVA Negativo)",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": []},
+        "expected_status": 400
+    },
+    {
+        "id": 13,
+        "name": "Verificar que una cantidad alta (quantity: 35) no afecte el límite de productos únicos",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 35}]},
+        "expected_status": 200
+    },
+    {
+        "id": 14,
+        "name": "Verificar el comportamiento al enviar un tipo string en el parámetro ID del kit",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/abc/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 1}]},
+        "expected_status": 400
+    },
+    {
+        "id": 15,
+        "name": "Verificar el comportamiento al enviar un string en el campo id de producto",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": "uno", "quantity": 1}]},
+        "expected_status": 400
+    },
+    {
+        "id": 16,
+        "name": "Verificar la adición de 29 productos únicos a un kit (Límite cercano al máximo)",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": i, "quantity": 1} for i in range(1, 30)]},
+        "expected_status": 200
+    },
+    {
+        "id": 17,
+        "name": "Verificar el comportamiento al enviar el mismo ID de producto repetido",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 2}, {"id": 1, "quantity": 3}]},
+        "expected_status": 200
+    },
+    {
+        "id": 18,
+        "name": "Verificar el comportamiento al omitir la propiedad id en el objeto de producto",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"quantity": 2}]},
+        "expected_status": 400
+    },
+    {
+        "id": 19,
+        "name": "Verificar el comportamiento al omitir la propiedad quantity en el objeto de producto",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1}]},
+        "expected_status": 400
+    },
+    {
+        "id": 20,
+        "name": "Verificar el comportamiento al enviar un string en el campo quantity",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": "dos"}]},
+        "expected_status": 400
+    },
+    {
+        "id": 21,
+        "name": "Verificar el comportamiento al enviar método GET en lugar de POST",
+        "method": "GET",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": null,
+        "expected_status": 405
+    },
+    {
+        "id": 22,
+        "name": "Verificar robustez ante inyección maliciosa en el parámetro ID de kit",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6' OR '1'='1/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"productsList": [{"id": 1, "quantity": 1}]},
+        "expected_status": 400
+    },
+    {
+        "id": 23,
+        "name": "Verificar comportamiento al incluir campos extra no documentados en el body",
+        "method": "POST",
+        "endpoint": "/api/v1/kits/6/products",
+        "headers": {"Content-Type": "application/json"},
+        "payload": {"isAdmin": true, "discountCode": "FREE_KIT", "productsList": [{"id": 1, "quantity": 1}]},
+        "expected_status": 200
+    }
+]
