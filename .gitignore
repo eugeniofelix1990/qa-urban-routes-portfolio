@@ -1,0 +1,25 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caché de pruebas
+.pytest_cache/
+.tox/
+.nox/
+
+# Artefactos y reportes de Playwright / QA
+test-results/
+playwright-report/
+videos/
+screenshots/
+reports/*.html
+
+# Archivos del sistema y de configuración local
+.env
+.DS_Store
